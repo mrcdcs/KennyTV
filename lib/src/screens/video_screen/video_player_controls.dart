@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kenny_tv/src/models/episode_model/episode_model.dart';
 import 'package:kenny_tv/src/providers/selected_episode_provider/selected_episode_provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 const double _controlInsidePadding = 25.0;
 
@@ -97,10 +98,12 @@ class _VideoPlayerControlsState extends ConsumerState<VideoPlayerControls>
             widget.controller.pause();
             _playing = false;
             _animationController.animateTo(1.0);
+            WakelockPlus.disable();
           } else {
             widget.controller.play();
             _playing = true;
             _animationController.animateTo(0.0);
+            WakelockPlus.enable();
           }
         });
         break;

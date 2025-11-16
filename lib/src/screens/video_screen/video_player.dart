@@ -13,6 +13,7 @@ import 'package:kenny_tv/src/screens/video_screen/video_player_controls.dart';
 import 'package:kenny_tv/src/utils/dio.dart';
 import "package:video_player/video_player.dart" as FlutterVideoPlayer;
 import "package:video_player_android/video_player_android.dart";
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class VideoPlayer extends ConsumerStatefulWidget {
   final Episode episode;
@@ -51,6 +52,7 @@ class _VideoPlayerState extends ConsumerState<VideoPlayer> {
 
       await _videoPlayerController!.initialize();
       _videoPlayerController!.play();
+      WakelockPlus.enable();
     } catch (e) {
       setState(() {
         _errorWhileInit = true;
@@ -69,6 +71,7 @@ class _VideoPlayerState extends ConsumerState<VideoPlayer> {
   @override
   void dispose() {
     log("Disposing video player");
+    WakelockPlus.disable();
     _videoPlayerController?.dispose();
     _switchControllerTimer?.cancel();
     super.dispose();
