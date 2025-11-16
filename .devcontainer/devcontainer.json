@@ -1,0 +1,8 @@
+{
+  "name": "Flutter Android Devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "remoteUser": "vscode"
+}
